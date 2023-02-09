@@ -7,7 +7,6 @@ public class ClasseUtilitariaException extends RuntimeException {
     public ClasseUtilitariaException(String message, Throwable cause) {
         super(message, cause);
     }
-
     public ClasseUtilitariaException(String message) {
         super(message);
     }

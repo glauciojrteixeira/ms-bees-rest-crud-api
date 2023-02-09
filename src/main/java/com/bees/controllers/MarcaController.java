@@ -33,7 +33,6 @@ public class MarcaController {
         Marca body = marcaService.buscarId(
                 VersionAPI.version(versionHeader, versionParam), id);
 
-        // Antes do response, converte o objeto de dominio em um DTO
         return ResponseEntity.ok().body(new MarcaDTO(body));
     }
 
@@ -46,7 +45,6 @@ public class MarcaController {
         List<Marca> body = marcaService.buscarTodas(
                 VersionAPI.version(versionHeader, versionParam));
 
-        // Converte a lista do objeto de dominio em uma lista DTO
         List<MarcaDTO> bodyDTO = body
                 .stream()
                 .map(categoria -> new MarcaDTO(categoria))
@@ -70,7 +68,6 @@ public class MarcaController {
                 VersionAPI.version(versionHeader, versionParam),
                 page, linesPerPage, orderBy, direction);
 
-        // Converte a lista do objeto de dominio em uma lista DTO
         Page<MarcaDTO> bodyDTO = body
                 .map(marca -> new MarcaDTO(marca));
 

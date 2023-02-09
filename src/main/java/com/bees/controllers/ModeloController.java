@@ -1,8 +1,6 @@
 package com.bees.controllers;
 
-import com.bees.domains.Marca;
 import com.bees.domains.Modelo;
-import com.bees.domains.dtos.MarcaDTO;
 import com.bees.domains.dtos.ModeloDTO;
 import com.bees.services.ModeloService;
 import com.bees.services.VersionAPI;
@@ -35,7 +33,6 @@ public class ModeloController {
         Modelo body = modeloService.buscarId(
                 VersionAPI.version(versionHeader, versionParam), id);
 
-        // Antes do response, converte o objeto de dominio em um DTO
         return ResponseEntity.ok().body(new ModeloDTO(body));
     }
 
@@ -48,7 +45,6 @@ public class ModeloController {
         List<Modelo> body = modeloService.buscarTodas(
                 VersionAPI.version(versionHeader, versionParam));
 
-        // Converte a lista do objeto de dominio em uma lista DTO
         List<ModeloDTO> bodyDTO = body
                 .stream()
                 .map(modelo -> new ModeloDTO(modelo))
@@ -72,7 +68,6 @@ public class ModeloController {
                 VersionAPI.version(versionHeader, versionParam),
                 page, linesPerPage, orderBy, direction);
 
-        // Converte a lista do objeto de dominio em uma lista DTO
         Page<ModeloDTO> bodyDTO = body
                 .map(modelo -> new ModeloDTO(modelo));
 

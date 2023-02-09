@@ -8,8 +8,7 @@ public enum StatusCarro {
     DISPONIVEL(1, "Disponivel"),
     INDISPONIVEL(2, "Indisponivel");
 
-    @Getter
-    private int codigo;
+    @Getter private int codigo;
     @Getter private String descricao;
 
     public static StatusCarro toEnum(Integer codigo) {

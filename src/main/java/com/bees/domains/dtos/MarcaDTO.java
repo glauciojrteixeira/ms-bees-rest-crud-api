@@ -11,13 +11,9 @@ import java.io.Serializable;
 public class MarcaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Getter
-    @Setter
-    private Integer id;
-
+    @Getter @Setter private Integer id;
     @Getter @Setter private String nomeMarca;
 
-    /** Construtores **/
     public MarcaDTO(Marca marca) {
         this.id = marca.getId();
         this.nomeMarca = marca.getNomeMarca();

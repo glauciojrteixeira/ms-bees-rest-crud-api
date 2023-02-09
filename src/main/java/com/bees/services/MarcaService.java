@@ -39,7 +39,6 @@ public class MarcaService {
     }
 
     public List<Marca> buscarTodas(String version) {
-
         version = version.equals("0") ? versionAPIDefault : version;
 
         if (version.equals("1.0")) {

@@ -18,8 +18,7 @@ import java.util.Objects;
         @Index(columnList = "id", unique = true),
         @Index(columnList = "nomeModelo ASC", unique = true)
 })
-@NoArgsConstructor
-@ToString
+@NoArgsConstructor @ToString
 public class Modelo implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,11 +30,8 @@ public class Modelo implements Serializable {
             sequenceName = "seq_modelo",
             initialValue = 1,
             allocationSize = 50)
-    @Getter
-    @Setter
-    @Column(nullable = false, unique = true)
+    @Getter @Setter @Column(nullable = false, unique = true)
     private Integer id;
-
     @Getter @Setter @Column(nullable = false, unique = true)
     private String nomeModelo;
 
