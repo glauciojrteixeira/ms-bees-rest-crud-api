@@ -43,6 +43,10 @@ public class Marca implements Serializable {
 
 
     /** Construtores **/
+    public Marca(Integer id, String nomeMarca) {
+        this.id = id;
+        this.nomeMarca = nomeMarca;
+    }
 
     /** Equals and Hash **/
     @Override

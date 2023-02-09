@@ -1,6 +1,10 @@
 server:
   port: ${port:8080}
 
+api:
+  version:
+    default: 1.0
+
 swagger:
   enable: true
 

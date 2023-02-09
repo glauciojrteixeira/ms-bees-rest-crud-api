@@ -1,0 +1,8 @@
+com\bees\services\exceptions\VersionAPIException.class
+com\bees\services\exceptions\ViolacaoIntegridadeDadoException.class
+com\bees\configurations\SwaggerConfig.class
+com\bees\domains\enums\StatusCarro.class
+com\bees\domains\Marca.class
+com\bees\Main.class
+com\bees\services\exceptions\ObjetoNaoEncontradoException.class
+com\bees\domains\Modelo.class
