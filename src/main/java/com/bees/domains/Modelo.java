@@ -49,6 +49,10 @@ public class Modelo implements Serializable {
     @Getter @Setter private List<Marca> marcas = new ArrayList<>();
 
     /** Construtores **/
+    public Modelo(Integer id, String nomeModelo) {
+        this.id = id;
+        this.nomeModelo = nomeModelo;
+    }
 
     /** Equals and Hash **/
     @Override
