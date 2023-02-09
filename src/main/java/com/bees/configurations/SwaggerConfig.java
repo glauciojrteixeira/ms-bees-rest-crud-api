@@ -80,7 +80,7 @@ public class SwaggerConfig {
                 "Versão API 1.0",
                 "https://www.bees.com/terms",
                 new Contact(
-                        "Gláucio Teixeira",
+                        "Bees Brasil",
                         "bees.com/user/glaucio-teixeira",
                         "glaucio.teixeira@outlook.com"),
                 "Uso permitido sob licença.",
