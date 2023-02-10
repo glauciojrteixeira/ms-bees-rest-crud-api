@@ -90,4 +90,33 @@ public class MarcaService {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
         }
     }
+
+    @Transactional
+    public Marca atualizar(String version, Marca entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            Marca newEntity = buscarId(version, entity.getId());
+            atualizaNovoVelho(version, newEntity, entity);
+
+            return marcaRepo.save(entity);
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+
+    /*
+     * Metodo para manter atualizado os dados que não serão modificados pela entrada no sistema.
+     */
+    private void atualizaNovoVelho(String version, Marca newEntity, Marca entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            newEntity.setNomeMarca(entity.getNomeMarca());
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
 }

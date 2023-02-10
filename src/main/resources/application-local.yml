@@ -10,7 +10,7 @@ swagger:
 
 jwt:
   secret: SequenciaDeCaracteresParaAssinarToken
-  expiration: 120000
+  expiration: 1200000
 
 spring:
   mvc:

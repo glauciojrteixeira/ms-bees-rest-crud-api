@@ -105,4 +105,23 @@ public class MarcaController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    /** PUT **/
+    @ApiOperation(value="Atualiza registro por id")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Void> atualizar(
+            @RequestHeader(name = "api-version", defaultValue = "0", required = false) String versionHeader,
+            @RequestParam(value = "version", defaultValue = "0", required = false) String versionParam,
+            @RequestBody MarcaDTO entityDTO, @PathVariable Integer id) {
+
+        // Convertendo de DTO para objeto
+        Marca entity = marcaService.fromDTO(VersionAPI.version(versionHeader, versionParam), entityDTO);
+
+        entity.setId(id);
+        marcaService.atualizar(VersionAPI.version(versionHeader, versionParam), entity);
+
+        return ResponseEntity.noContent().build();
+    }
 }
