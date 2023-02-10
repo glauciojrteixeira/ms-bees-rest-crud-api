@@ -1,5 +1,6 @@
 package com.bees.domains;
 
+import com.bees.domains.enums.TipoPerfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +9,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "usuario", indexes = {
@@ -39,4 +43,30 @@ public class Usuario implements Serializable {
     @Getter @Setter @Column(nullable = true, unique = false) @JsonIgnore
     private String senha;
 
+    /** Mapeamentos & Cardinalidades */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "USUARIOPERFIL")
+    private Set<Integer> perfis = new HashSet<>();
+
+    /** Construtores **/
+    public Usuario(Integer id, String nomeUsuario, String email, String senha) {
+        this.id = id;
+        this.nomeUsuario = nomeUsuario;
+        this.email = email;
+        this.senha = senha;
+
+        addTipoPerfil(TipoPerfil.USUARIO);
+    }
+    public Usuario() {
+        addTipoPerfil(TipoPerfil.USUARIO);
+    }
+
+    /** Metodos */
+    public Set<TipoPerfil> getPerfis() {
+        return perfis.stream().map(x -> TipoPerfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addTipoPerfil(TipoPerfil tipoPerfil) {
+        perfis.add(tipoPerfil.getCodigo());
+    }
 }

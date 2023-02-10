@@ -8,6 +8,10 @@ api:
 swagger:
   enable: true
 
+jwt:
+  secret: SequenciaDeCaracteresParaAssinarToken
+  expiration: 120000
+
 spring:
   mvc:
     pathmatch:
