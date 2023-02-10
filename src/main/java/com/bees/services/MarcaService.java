@@ -1,6 +1,7 @@
 package com.bees.services;
 
 import com.bees.domains.Marca;
+import com.bees.domains.dtos.MarcaDTO;
 import com.bees.repositories.MarcaRepository;
 import com.bees.services.exceptions.ObjetoNaoEncontradoException;
 import com.bees.services.exceptions.VersionAPIException;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +58,34 @@ public class MarcaService {
 
         if (version.equals("1.0")) {
             return marcaRepo.findAll(pageRequest);
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+
+    @Transactional
+    public Marca guardar(String version, Marca entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            entity.setId(null);
+
+            return marcaRepo.save(entity);
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+
+    /*
+     * Metodo auxiliar para instanciar uma classe de dominio a partir de um DTO
+     */
+    public Marca fromDTO(String version, MarcaDTO objetoDTO) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            return new Marca(objetoDTO.getId(), objetoDTO.getNomeMarca());
         } else {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
         }

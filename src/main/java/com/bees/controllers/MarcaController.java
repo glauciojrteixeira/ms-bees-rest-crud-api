@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,4 +77,32 @@ public class MarcaController {
         return ResponseEntity.ok().body(bodyDTO);
     }
 
+    /** POST **/
+    @ApiOperation(value="Grava registros pelo contexto do DTO")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Void> guardar(
+            @RequestHeader(name = "api-version", defaultValue = "0", required = false) String versionHeader,
+            @RequestParam(value = "version", defaultValue = "0", required = false) String versionParam,
+            @RequestBody MarcaDTO entityDTO) {
+
+        // Convertendo de DTO para objeto
+        Marca entity = marcaService.fromDTO(
+                VersionAPI.version(versionHeader, versionParam),
+                entityDTO);
+
+        entity = marcaService.guardar(
+                VersionAPI.version(versionHeader, versionParam),
+                entity);
+
+        /* Preparando para devolver a URI se o status for 201 */
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(entity.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
 }

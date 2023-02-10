@@ -1,9 +1,12 @@
 package com.bees.services;
 
+import com.bees.domains.Carro;
 import com.bees.domains.Marca;
 import com.bees.domains.Modelo;
 import com.bees.domains.Usuario;
+import com.bees.domains.enums.StatusCarro;
 import com.bees.domains.enums.TipoPerfil;
+import com.bees.repositories.CarroRepository;
 import com.bees.repositories.MarcaRepository;
 import com.bees.repositories.ModeloRepository;
 import com.bees.repositories.UsuarioRepository;
@@ -28,6 +31,9 @@ public class DatabaseService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CarroRepository carroRepo;
 
     public void instantiateDatabaseLocal() throws ParseException {
         Marca mac01 = new Marca(null, "Jeep");
@@ -58,5 +64,8 @@ public class DatabaseService {
 
         usuarioRepo.saveAll(Arrays.asList(usuario01, usuario02));
 
+        Carro carro01 = new Carro(null, "QNH-3272", StatusCarro.DISPONIVEL);
+
+        carroRepo.saveAll(Arrays.asList(carro01));
     }
 }
