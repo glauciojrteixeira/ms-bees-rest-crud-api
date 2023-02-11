@@ -50,6 +50,10 @@ public class Modelo implements Serializable {
         this.nomeModelo = nomeModelo;
         this.marca = marca;
     }
+    public Modelo(String nomeModelo, Marca marca) {
+        this.nomeModelo = nomeModelo;
+        this.marca = marca;
+    }
 
     /** Equals and Hash **/
     @Override

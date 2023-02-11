@@ -9,16 +9,14 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @NoArgsConstructor
-public class ModeloDTO implements Serializable {
+public class ModeloNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Getter @Setter private Integer id;
     @Getter @Setter private String nomeModelo;
-    @Getter @Setter private Marca marca;
+    @Getter @Setter private Integer idMarca;
 
-    public ModeloDTO(Modelo modelo) {
-        this.id = modelo.getId();
+    public ModeloNewDTO(Modelo modelo) {
         this.nomeModelo = modelo.getNomeModelo();
-        this.marca = modelo.getMarca();
+        this.idMarca = modelo.getMarca().getId();
     }
 }
