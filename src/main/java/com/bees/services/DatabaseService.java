@@ -59,8 +59,9 @@ public class DatabaseService {
 
         usuarioRepo.saveAll(Arrays.asList(usuario01, usuario02));
 
-        Carro carro01 = new Carro(null, "QNH-3272", StatusCarro.DISPONIVEL);
+        Carro carro01 = new Carro(null, "QNH-3272", modelo01, StatusCarro.DISPONIVEL);
+        Carro carro02 = new Carro(null, "ENT-1317", modelo02, StatusCarro.INDISPONIVEL);
 
-        carroRepo.saveAll(Arrays.asList(carro01));
+        carroRepo.saveAll(Arrays.asList(carro01, carro02));
     }
 }

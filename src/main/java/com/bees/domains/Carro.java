@@ -32,15 +32,20 @@ public class Carro implements Serializable {
 
     @Getter @Setter @Column(nullable = false, unique = true)
     private String placa;
+
     @Getter @Setter @Column(nullable = false, unique = false)
     private StatusCarro status;
 
     /** Mapeamentos & Cardinalidades **/
+    @ManyToOne
+    @JoinColumn(name = "modelo_id")
+    @Getter @Setter private Modelo modelo;
 
     /** Construtores **/
-    public Carro(Integer id, String placa, StatusCarro status) {
+    public Carro(Integer id, String placa, Modelo modelo, StatusCarro status) {
         this.id = id;
         this.placa = placa;
+        this.modelo = modelo;
         this.status = status;
     }
 

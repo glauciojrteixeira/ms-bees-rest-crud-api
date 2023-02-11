@@ -40,6 +40,10 @@ public class Modelo implements Serializable {
     @JoinColumn(name = "marca_id")
     @Getter @Setter private Marca marca;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "modelo")
+    @Getter @Setter private List<Carro> carros = new ArrayList<>();
+
     /** Construtores **/
     public Modelo(Integer id, String nomeModelo, Marca marca) {
         this.id = id;
