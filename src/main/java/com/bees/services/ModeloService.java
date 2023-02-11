@@ -97,4 +97,34 @@ public class ModeloService {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
         }
     }
+
+
+    @Transactional
+    public Modelo atualizar(String version, Modelo entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            Modelo newEntity = buscarId(version, entity.getId());
+            atualizaNovoVelho(version, newEntity, entity);
+
+            return modeloRepo.save(entity);
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+
+    /*
+     * Metodo para manter atualizado os dados que não serão modificados pela entrada no sistema.
+     */
+    private void atualizaNovoVelho(String version, Modelo newEntity, Modelo entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            newEntity.setNomeModelo(entity.getNomeModelo());
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
 }
