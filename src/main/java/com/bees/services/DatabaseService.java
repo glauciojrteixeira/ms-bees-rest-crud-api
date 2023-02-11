@@ -36,20 +36,15 @@ public class DatabaseService {
     private CarroRepository carroRepo;
 
     public void instantiateDatabaseLocal() throws ParseException {
-        Marca mac01 = new Marca(null, "Jeep");
-        Marca mac02 = new Marca(null, "Ford");
+        Marca marca01 = new Marca(null, "Jeep");
+        Marca marca02 = new Marca(null, "Ford");
 
+        Modelo modelo01 = new Modelo(null, "Renegade", marca01);
+        Modelo modelo02 = new Modelo(null, "Compass", marca01);
+        Modelo modelo03 = new Modelo(null, "Fiesta", marca02);
 
-        Modelo mod01 = new Modelo(null, "Renegade");
-        Modelo mod02 = new Modelo(null, "Compass");
-        Modelo mod03 = new Modelo(null, "Fiesta");
-
-        mod01.getMarcas().addAll(Arrays.asList(mac01));
-        mod02.getMarcas().addAll(Arrays.asList(mac01));
-        mod03.getMarcas().addAll(Arrays.asList(mac02));
-
-        marcaRepo.saveAll(Arrays.asList(mac01, mac02));
-        modeloRepo.saveAll(Arrays.asList(mod01, mod02, mod03));
+        marcaRepo.saveAll(Arrays.asList(marca01, marca02));
+        modeloRepo.saveAll(Arrays.asList(modelo01, modelo02, modelo03));
 
         Usuario usuario01 = new Usuario(null,
                 "Gláucio Júnior Teixeira",

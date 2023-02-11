@@ -36,18 +36,15 @@ public class Modelo implements Serializable {
     private String nomeModelo;
 
     /** Mapeamentos & Cardinalidades **/
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "MODELO_MARCA",
-            joinColumns = @JoinColumn(name = "modelo_id"),
-            inverseJoinColumns = @JoinColumn(name = "marca_id")
-    )
-    @Getter @Setter private List<Marca> marcas = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    @Getter @Setter private Marca marca;
 
     /** Construtores **/
-    public Modelo(Integer id, String nomeModelo) {
+    public Modelo(Integer id, String nomeModelo, Marca marca) {
         this.id = id;
         this.nomeModelo = nomeModelo;
+        this.marca = marca;
     }
 
     /** Equals and Hash **/

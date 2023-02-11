@@ -1,5 +1,6 @@
 package com.bees.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +36,8 @@ public class Marca implements Serializable {
     private String nomeMarca;
 
     /** Mapeamentos & Cardinalidades **/
-    @ManyToMany(mappedBy = "marcas")
+    @JsonIgnore
+    @OneToMany(mappedBy = "marca")
     @Getter @Setter private List<Modelo> modelos = new ArrayList<>();
 
 
