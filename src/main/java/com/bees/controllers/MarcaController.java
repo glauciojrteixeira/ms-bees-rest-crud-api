@@ -5,6 +5,8 @@ import com.bees.domains.dtos.MarcaDTO;
 import com.bees.services.MarcaService;
 import com.bees.services.VersionAPI;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -121,6 +123,25 @@ public class MarcaController {
 
         entity.setId(id);
         marcaService.atualizar(VersionAPI.version(versionHeader, versionParam), entity);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    /** DELETE **/
+    @ApiOperation(value="Remove registro por id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Não é possivel excluir uma MARCA que possui MODELO(S)!"),
+            @ApiResponse(code = 404, message = "Código inexistente!")
+    })
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> removerId(
+            @RequestHeader(name = "api-version", defaultValue = "0", required = false) String versionHeader,
+            @RequestParam(value = "version", defaultValue = "0", required = false) String versionParam,
+            @PathVariable Integer id) {
+
+        marcaService.remover(
+                VersionAPI.version(versionHeader, versionParam), id);
 
         return ResponseEntity.noContent().build();
     }

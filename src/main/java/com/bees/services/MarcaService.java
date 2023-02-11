@@ -5,8 +5,10 @@ import com.bees.domains.dtos.MarcaDTO;
 import com.bees.repositories.MarcaRepository;
 import com.bees.services.exceptions.ObjetoNaoEncontradoException;
 import com.bees.services.exceptions.VersionAPIException;
+import com.bees.services.exceptions.ViolacaoIntegridadeDadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -115,6 +117,24 @@ public class MarcaService {
 
         if (version.equals("1.0")) {
             newEntity.setNomeMarca(entity.getNomeMarca());
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+
+    @Transactional
+    public void remover(String version, Integer id) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+            buscarId(version, id);
+
+            try {
+                marcaRepo.deleteById(id);
+            } catch (DataIntegrityViolationException e) {
+                throw new ViolacaoIntegridadeDadoException("Não é possível excluir Categoria que possui entidades relacionadas!");
+            }
         } else {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
         }
