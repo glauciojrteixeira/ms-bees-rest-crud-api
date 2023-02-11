@@ -133,7 +133,7 @@ public class MarcaService {
             try {
                 marcaRepo.deleteById(id);
             } catch (DataIntegrityViolationException e) {
-                throw new ViolacaoIntegridadeDadoException("Não é possível excluir Categoria que possui entidades relacionadas!");
+                throw new ViolacaoIntegridadeDadoException("Não é possível excluir Marca que possui entidades relacionadas!");
             }
         } else {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);

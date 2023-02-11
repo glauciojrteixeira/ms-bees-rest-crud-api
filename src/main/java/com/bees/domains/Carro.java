@@ -34,6 +34,7 @@ public class Carro implements Serializable {
     private String placa;
 
     @Getter @Setter @Column(nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
     private StatusCarro status;
 
     /** Mapeamentos & Cardinalidades **/

@@ -135,7 +135,7 @@ public class MarcaController {
     })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> removerId(
+    public ResponseEntity<Void> remover(
             @RequestHeader(name = "api-version", defaultValue = "0", required = false) String versionHeader,
             @RequestParam(value = "version", defaultValue = "0", required = false) String versionParam,
             @PathVariable Integer id) {
