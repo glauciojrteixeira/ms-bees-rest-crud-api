@@ -17,5 +17,5 @@ public class CarroNewDTO implements Serializable {
     @Getter @Setter private String placa;
     @Getter @Setter private Integer idModelo;
     @Getter @Setter private Integer codeStatus;
-    
+
 }

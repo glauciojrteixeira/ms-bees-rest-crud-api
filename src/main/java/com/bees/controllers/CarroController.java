@@ -1,10 +1,8 @@
 package com.bees.controllers;
 
 import com.bees.domains.Carro;
-import com.bees.domains.Marca;
 import com.bees.domains.dtos.CarroDTO;
 import com.bees.domains.dtos.CarroNewDTO;
-import com.bees.domains.dtos.MarcaDTO;
 import com.bees.services.CarroService;
 import com.bees.services.VersionAPI;
 import io.swagger.annotations.ApiOperation;
@@ -108,6 +106,25 @@ public class CarroController {
                 .toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    /** PUT **/
+    @ApiOperation(value="Atualiza registro por id")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Void> atualizar(
+            @RequestHeader(name = "api-version", defaultValue = "0", required = false) String versionHeader,
+            @RequestParam(value = "version", defaultValue = "0", required = false) String versionParam,
+            @RequestBody CarroNewDTO entityDTO, @PathVariable Integer id) {
+
+        // Convertendo de DTO para objeto
+        Carro entity = carroService.fromDTO(VersionAPI.version(versionHeader, versionParam), entityDTO);
+
+        entity.setId(id);
+        carroService.atualizar(VersionAPI.version(versionHeader, versionParam), entity);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

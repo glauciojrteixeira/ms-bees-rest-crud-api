@@ -108,4 +108,18 @@ public class CarroService {
             throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
         }
     }
+
+    @Transactional
+    public Carro atualizar(String version, Carro entity) {
+
+        version = version.equals("0") ? versionAPIDefault : version;
+
+        if (version.equals("1.0")) {
+
+            return carroRepo.save(entity);
+        } else {
+            throw new VersionAPIException(MSG_API_NAO_ENCONTRADA);
+        }
+    }
+    
 }
